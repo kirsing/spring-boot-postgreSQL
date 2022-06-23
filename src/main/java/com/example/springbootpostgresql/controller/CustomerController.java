@@ -1,8 +1,13 @@
 package com.example.springbootpostgresql.controller;
 
 
+import com.example.springbootpostgresql.CustomEntityException;
 import com.example.springbootpostgresql.entity.CustomerEntity;
 import com.example.springbootpostgresql.service.CustomerService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +28,14 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Optional<CustomerEntity> findCustomerById(@PathVariable("id") Long id) {
-        return customerService.findById(id);
+    public CustomerEntity findCustomerById(@PathVariable("id") Long id) {
+        return customerService.findById(id).orElseThrow(()->new CustomEntityException( "not "+id));
     }
     @PostMapping
-    public CustomerEntity saveCustomer(@RequestBody CustomerEntity customerEntity) {
-        return customerService.saveCustomer(customerEntity);
+    public ResponseEntity<CustomerEntity> saveCustomer(@RequestBody CustomerEntity customerEntity) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Custom-Header", "foo");
+        return new ResponseEntity<>(customerService.saveCustomer(customerEntity), headers, HttpStatus.CREATED);
     }
     @PutMapping
     public CustomerEntity updateCustomer(@RequestBody CustomerEntity customerEntity) {
