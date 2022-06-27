@@ -51,8 +51,33 @@ public class DateTimeController {
 
     @PostMapping("/local-date-time-before")
     public List<CustomerEntity> dateTimeBefore(@RequestParam("time-before")
-                                                  @DateTimeFormat(pattern = "yyyy-MM-dd, HH:mm") LocalDateTime dateTime) {
+                                                   @DateTimeFormat(pattern = "yyyy-MM-dd, HH:mm") LocalDateTime dateTime) {
         return customerRepository.findCustomerEntitiesByLocalDateTimeBefore(dateTime);
     }
+
+    @PostMapping("/local-date-time-after")
+    public List<CustomerEntity> dateTimeAfter(@RequestParam("time-after")
+                                              @DateTimeFormat(pattern = "yyyy-MM-dd, HH:mm") LocalDateTime dateTime) {
+        return customerRepository.findCustomerEntitiesByLocalDateTimeAfter(dateTime);
+
+    }
+    @PostMapping("/date-time-between")
+    public List<CustomerEntity> dateTimebetween(@RequestParam("datetime1")
+                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime datetime1,
+                                            @RequestParam("datetime2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime datetime2) {
+        return customerRepository.findCustomerEntitiesByLocalDateTimeBetween(datetime1, datetime2);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

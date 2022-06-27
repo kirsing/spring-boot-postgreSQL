@@ -14,4 +14,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 
     public List<CustomerEntity> findCustomerEntitiesByLocalDateTimeAfter(LocalDateTime localDateTime);
     public List<CustomerEntity> findCustomerEntitiesByLocalDateTimeBefore(LocalDateTime localDateTime);
+
+    public List<CustomerEntity> findCustomerEntitiesByLocalDateTimeBetween(LocalDateTime localDateTime1, LocalDateTime localDateTime2);
 }

@@ -21,7 +21,7 @@ public class CustomerEntity {
     private Long id;
     @Column(name = "customer_name", nullable = false, length = 15)
     private String name;
-    @Column(name = "customer_number", nullable = false, length = 15)
+    @Column(name = "customer_number", nullable = false, length = 20)
     private String number;
 
     @Column(name = "local_time", columnDefinition = "TIME")
